@@ -175,9 +175,9 @@ func TestMakeMultiplier(t *testing.T) {
 
 func TestMakeAccumulator(t *testing.T) {
 	tests := []struct {
-		name           string
-		initial        int
-		operations     []struct {
+		name       string
+		initial    int
+		operations []struct {
 			op   string
 			val  int
 			want int
@@ -228,7 +228,7 @@ func TestMakeAccumulator(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			add, subtract, get := MakeAccumulator(tt.initial)
-			
+
 			// Test initial value
 			current := get()
 			if current != tt.initial {
@@ -243,7 +243,7 @@ func TestMakeAccumulator(t *testing.T) {
 				case "subtract":
 					subtract(op.val)
 				}
-				
+
 				current := get()
 				if current != op.want {
 					t.Errorf("After operation %d (%s %d): got %v, want %v", i+1, op.op, op.val, current, op.want)
@@ -496,11 +496,11 @@ func TestReduce(t *testing.T) {
 
 func TestSwapValues(t *testing.T) {
 	tests := []struct {
-		name     string
-		a        int
-		b        int
-		wantA    int
-		wantB    int
+		name  string
+		a     int
+		b     int
+		wantA int
+		wantB int
 	}{
 		{
 			name:  "swap positive numbers",
@@ -554,11 +554,11 @@ func TestSwapValues(t *testing.T) {
 
 func TestSwapPointers(t *testing.T) {
 	tests := []struct {
-		name     string
-		a        int
-		b        int
-		wantA    int
-		wantB    int
+		name  string
+		a     int
+		b     int
+		wantA int
+		wantB int
 	}{
 		{
 			name:  "swap positive numbers",
@@ -602,9 +602,9 @@ func TestSwapPointers(t *testing.T) {
 			// Create variables to test pointer swapping
 			a := tt.a
 			b := tt.b
-			
+
 			SwapPointers(&a, &b)
-			
+
 			if a != tt.wantA {
 				t.Errorf("SwapPointers() a = %v, want %v", a, tt.wantA)
 			}
