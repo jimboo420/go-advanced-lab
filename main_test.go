@@ -494,6 +494,127 @@ func TestReduce(t *testing.T) {
 	}
 }
 
+func TestSwapValues(t *testing.T) {
+	tests := []struct {
+		name     string
+		a        int
+		b        int
+		wantA    int
+		wantB    int
+	}{
+		{
+			name:  "swap positive numbers",
+			a:     5,
+			b:     10,
+			wantA: 10,
+			wantB: 5,
+		},
+		{
+			name:  "swap negative numbers",
+			a:     -3,
+			b:     -7,
+			wantA: -7,
+			wantB: -3,
+		},
+		{
+			name:  "swap mixed numbers",
+			a:     15,
+			b:     -20,
+			wantA: -20,
+			wantB: 15,
+		},
+		{
+			name:  "swap zeros",
+			a:     0,
+			b:     0,
+			wantA: 0,
+			wantB: 0,
+		},
+		{
+			name:  "swap large numbers",
+			a:     1000,
+			b:     2000,
+			wantA: 2000,
+			wantB: 1000,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			gotA, gotB := SwapValues(tt.a, tt.b)
+			if gotA != tt.wantA {
+				t.Errorf("SwapValues() first return = %v, want %v", gotA, tt.wantA)
+			}
+			if gotB != tt.wantB {
+				t.Errorf("SwapValues() second return = %v, want %v", gotB, tt.wantB)
+			}
+		})
+	}
+}
+
+func TestSwapPointers(t *testing.T) {
+	tests := []struct {
+		name     string
+		a        int
+		b        int
+		wantA    int
+		wantB    int
+	}{
+		{
+			name:  "swap positive numbers",
+			a:     5,
+			b:     10,
+			wantA: 10,
+			wantB: 5,
+		},
+		{
+			name:  "swap negative numbers",
+			a:     -3,
+			b:     -7,
+			wantA: -7,
+			wantB: -3,
+		},
+		{
+			name:  "swap mixed numbers",
+			a:     15,
+			b:     -20,
+			wantA: -20,
+			wantB: 15,
+		},
+		{
+			name:  "swap zeros",
+			a:     0,
+			b:     0,
+			wantA: 0,
+			wantB: 0,
+		},
+		{
+			name:  "swap large numbers",
+			a:     1000,
+			b:     2000,
+			wantA: 2000,
+			wantB: 1000,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			// Create variables to test pointer swapping
+			a := tt.a
+			b := tt.b
+			
+			SwapPointers(&a, &b)
+			
+			if a != tt.wantA {
+				t.Errorf("SwapPointers() a = %v, want %v", a, tt.wantA)
+			}
+			if b != tt.wantB {
+				t.Errorf("SwapPointers() b = %v, want %v", b, tt.wantB)
+			}
+		})
+	}
+}
+
 func TestCompose(t *testing.T) {
 	tests := []struct {
 		name     string
