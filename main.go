@@ -82,6 +82,42 @@ func MakeAccumulator(initial int) (func(int), func(int), func() int) {
 	return add, subtract, get
 }
 
+// Apply applies a function to each element of a slice and returns a new slice
+func Apply(nums []int, operation func(int) int) []int {
+	result := make([]int, len(nums))
+	for i, num := range nums {
+		result[i] = operation(num)
+	}
+	return result
+}
+
+// Filter returns a new slice containing only elements where predicate returns true
+func Filter(nums []int, predicate func(int) bool) []int {
+	var result []int
+	for _, num := range nums {
+		if predicate(num) {
+			result = append(result, num)
+		}
+	}
+	return result
+}
+
+// Reduce reduces a slice to a single value using the operation function
+func Reduce(nums []int, initial int, operation func(accumulator, current int) int) int {
+	accumulator := initial
+	for _, num := range nums {
+		accumulator = operation(accumulator, num)
+	}
+	return accumulator
+}
+
+// Compose returns a new function that is the composition of f and g (f(g(x)))
+func Compose(f func(int) int, g func(int) int) func(int) int {
+	return func(x int) int {
+		return f(g(x))
+	}
+}
+
 func main() {
 	fmt.Println("Hello, World!")
 }
