@@ -3,6 +3,7 @@ package main
 import (
 	"errors"
 	"fmt"
+	"os"
 )
 
 func Factorial(n int) (int, error) {
@@ -118,6 +119,39 @@ func Compose(f func(int) int, g func(int) int) func(int) int {
 	}
 }
 
+// ExploreProcess demonstrates process exploration and memory addresses
+func ExploreProcess() {
+	fmt.Println("\n=== Process Exploration ===")
+	
+	// Get current process ID
+	pid := os.Getpid()
+	fmt.Printf("Current Process ID: %d\n", pid)
+	fmt.Println("- Process ID (PID) is a unique identifier assigned by the operating system to each running process")
+	
+	// Get parent process ID
+	ppid := os.Getppid()
+	fmt.Printf("Parent Process ID: %d\n", ppid)
+	fmt.Println("- Process isolation ensures each process runs in its own protected memory space")
+	
+	// Create a slice of integers
+	data := []int{1, 2, 3, 4, 5}
+	fmt.Printf("Slice contents: %v\n", data)
+	
+	// Print the memory address of the slice header
+	fmt.Printf("Slice header address: %p\n", &data)
+	fmt.Println("- The slice header contains metadata (length, capacity, pointer to underlying array)")
+	
+	// Print the memory address of the first element in the slice
+	if len(data) > 0 {
+		fmt.Printf("First element address: %p\n", &data[0])
+		fmt.Println("- This is the actual memory location where the first element is stored")
+	}
+	
+	fmt.Println("- Process isolation means other processes cannot access these memory addresses")
+	fmt.Println("- Each process operates in its own virtual address space for security and stability")
+}
+
 func main() {
 	fmt.Println("Hello, World!")
+	ExploreProcess()
 }
