@@ -1,0 +1,3 @@
+# Ignore .gcode folder
+.gcode/
+go.mod
