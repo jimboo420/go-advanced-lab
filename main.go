@@ -48,6 +48,40 @@ func Power(base, exponent int) (int, error) {
 	return result, nil
 }
 
+// MakeCounter returns a function that increments and returns a counter
+// Each call to the returned function increments the counter by 1
+// Multiple counters are independent
+func MakeCounter(start int) func() int {
+	count := start
+	return func() int {
+		count++
+		return count
+	}
+}
+
+// MakeMultiplier returns a function that multiplies its input by the captured factor
+func MakeMultiplier(factor int) func(int) int {
+	return func(x int) int {
+		return x * factor
+	}
+}
+
+// MakeAccumulator returns three functions that share the same captured state
+// add increases the accumulator, subtract decreases it, get returns current value
+func MakeAccumulator(initial int) (func(int), func(int), func() int) {
+	accumulator := initial
+	add := func(x int) {
+		accumulator += x
+	}
+	subtract := func(x int) {
+		accumulator -= x
+	}
+	get := func() int {
+		return accumulator
+	}
+	return add, subtract, get
+}
+
 func main() {
 	fmt.Println("Hello, World!")
 }
